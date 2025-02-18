@@ -4,5 +4,5 @@ export class Crop{
     cropImage!:Buffer;
     scientificName!:string;
     category!:string;
-    season!:number;
+    season!:string;
 }
