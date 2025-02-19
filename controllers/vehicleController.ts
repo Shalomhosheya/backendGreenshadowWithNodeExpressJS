@@ -40,3 +40,12 @@ router.delete('/deleteVehicle/:vehicleID',async(req,res)=>{
     }
 });
 export default router;
+router.put('/updateVehicle/:vehicleID',async(req,res)=>{
+    try{
+      
+
+    }catch(err){
+        console.log("Error during updating vehicle :",err);
+        res.status(400).send("Error during vehicle");
+    }
+})
