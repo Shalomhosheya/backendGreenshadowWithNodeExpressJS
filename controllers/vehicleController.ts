@@ -40,19 +40,20 @@ router.delete('/deleteVehicle/:vehicleID',async(req,res)=>{
         res.status(400).send("Error during Vehicle");
     }
 });
-export default router;
-router.put('/updateVehicle/:vehicleID',async(req,res)=>{
-        console.log("Received Update vehicle : ", req.body);
-        const vehicleID: string = req.params.vehicleID;
-        const vehicle: Vehicle = req.body;
+router.put('/updateVehicle/:vehicleID', async (req, res) => {
+    console.log("Received Update vehicle:", req.body);
     
-    try{
-      
-              await updateVehicle(vehicleID, vehicle);
-              res.status(200).send("Crop Updated");
+    const vehicleID: string = req.params.vehicleID;
+    const vehicleData = req.body; // Ensure partial data
 
-    }catch(err){
-        console.log("Error during updating vehicle :",err);
-        res.status(400).send("Error during vehicle");
+    try {
+        await updateVehicle(vehicleID, vehicleData);
+        res.status(200).send("Vehicle Updated Successfully");
+    } catch (err) {
+        console.error("Error during updating vehicle:", err);
+        res.status(400).send("Error updating vehicle");
     }
-})
+});
+
+
+export default router;
