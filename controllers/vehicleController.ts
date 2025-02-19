@@ -1,7 +1,8 @@
 import { vehicle } from "../model/vehicle";
 import { extractImages } from "../util/Apputil";
-import {getAll ,AddVehicle,DeleteVehicle } from "../services/vehicleService";
+import {getAll ,AddVehicle,DeleteVehicle,updateVehicle } from "../services/vehicleService";
 import e from "express";
+import { Vehicle } from "@prisma/client";
 
 const router = e.Router();
 
@@ -41,8 +42,14 @@ router.delete('/deleteVehicle/:vehicleID',async(req,res)=>{
 });
 export default router;
 router.put('/updateVehicle/:vehicleID',async(req,res)=>{
+        console.log("Received Update vehicle : ", req.body);
+        const vehicleID: string = req.params.vehicleID;
+        const vehicle: Vehicle = req.body;
+    
     try{
       
+              await updateVehicle(vehicleID, vehicle);
+              res.status(200).send("Crop Updated");
 
     }catch(err){
         console.log("Error during updating vehicle :",err);

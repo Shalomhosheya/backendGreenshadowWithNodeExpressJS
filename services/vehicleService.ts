@@ -38,3 +38,11 @@ export async function DeleteVehicle(vehicleID:string){
   console.error("Error in deleting: ",err)
  }
 }
+export async function updateVehicle(vehicleID:string){
+    try{
+
+    }catch(err){
+     
+    console.error("Error in updating: ",err)   
+    }
+}
