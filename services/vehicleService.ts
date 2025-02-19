@@ -29,3 +29,12 @@ export async function AddVehicle(vehicle: vehicle) {
         console.error("Error adding vehicle: ", err);
     }
 }
+export async function DeleteVehicle(vehicleID:string){
+ try{
+    await prisma.vehicle.delete({
+        where:{vehicleID:vehicleID}
+    })
+ }catch(err){
+  console.error("Error in deleting: ",err)
+ }
+}
