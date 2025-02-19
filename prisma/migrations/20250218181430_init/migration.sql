@@ -9,3 +9,14 @@ CREATE TABLE `Crop` (
 
     PRIMARY KEY (`cropID`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CREATE TABLE `vehicle` (
+--     `vehicleID` VARCHAR(191) NOT NULL,
+--     'vehicleCategory' VARCHAR(255) NOT NULL,
+--     'fuelType'VARCHAR(255) NOT NULL,
+--     `remarks`VARCHAR(255) NOT NULL,
+--     `status`VARCHAR(255) NOT NULL,
+--     `licenseNumberPlate` VARCHAR(255) NOT NULL,
+
+--     PRIMARY KEY(`vehicleID`)
+-- )DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
