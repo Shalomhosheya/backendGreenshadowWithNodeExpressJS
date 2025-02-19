@@ -21,35 +21,38 @@ export async function AddCrop(crop:Crop){
         console.log("Error during crop adding : ", err)
     }
 }
+
 export async function UpdateCrop(cropID: string, crop: Crop) {
     try {
+        // Ensure correct primary key field is used
         const existingCrop = await prisma.crop.findUnique({
-            where: { cropID: cropID },
+            where: { cropID: cropID }, // Ensure "id" is the correct field name
         });
 
         if (!existingCrop) {
-            console.log(`Crop with cropCode: ${cropID} not found.`);
-            return null;
+            console.log(`Crop with ID: ${cropID} not found.`);
+            return { error: "Crop not found" };
         }
 
-        const cropSeason = String(crop.season);
         const cropUpdate = await prisma.crop.update({
-            where: { cropID: cropID },
+            where: { cropID: cropID }, // Ensure "id" is the correct field name
             data: {
                 cropName: crop.cropName,
                 cropImage: crop.cropImage,
                 scientificName: crop.scientificName,
                 category: crop.category,
-                season: cropSeason,
+                season: crop.season?.toString(), // Ensure correct type conversion
             },
         });
 
-        console.log("Crop Updated ", cropUpdate);
+        console.log("Crop Updated:", cropUpdate);
         return cropUpdate;
     } catch (err) {
         console.error("Error during crop updating:", err);
+        return { error: "Error updating crop" };
     }
 }
+
 export async function DeleteCrop(cropID:string){
     try {
         await prisma.crop.delete({
