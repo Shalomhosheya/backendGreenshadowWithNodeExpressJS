@@ -2,6 +2,7 @@
 import express from 'express';
 import CropController from './controllers/cropController';
 import VehicleController from './controllers/vehicleController';
+import EquipmentController from './controllers/equipmentController';
 import fileupload from 'express-fileupload';
 
 const app = express();
@@ -11,6 +12,7 @@ app.use(fileupload());
 
 app.use('/crop',CropController);
 app.use('/vehicle',VehicleController);
+app.use('/equipment',EquipmentController);
 app.use('/',(req,res, next)=>{
     res.header('Access-Control-Allow-Origin',"*");
     res.header('Access-Control-Allow-Methods',"GET,PUT,POST,DELETE,OPTIONS");
