@@ -24,3 +24,9 @@ model Vehicle {
     licenseplate String
 
 }
+model equipment{
+  equipID String@id @default(uuid())
+  name String
+  type String
+  status String
+}
