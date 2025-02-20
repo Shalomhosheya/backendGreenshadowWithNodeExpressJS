@@ -13,12 +13,11 @@ export async function viewAllFields() {
     }
 }
 
-// Function to add a new field
 export async function addField(field: Field) {
     try {
-        // Convert base64 string to Buffer before storing
-        const pic1Buffer = field.pic1 ? Buffer.from(field.pic1, "base64") : undefined;
-        const pic2Buffer = field.pic2 ? Buffer.from(field.pic2, "base64") : undefined;
+        // Ensure that pic1 and pic2 are strings before converting them to Buffer
+        const pic1Buffer = typeof field.pic1 === "string" ? Buffer.from(field.pic1, "base64") : undefined;
+        const pic2Buffer = typeof field.pic2 === "string" ? Buffer.from(field.pic2, "base64") : undefined;
 
         const addedField = await prisma.field.create({
             data: {
@@ -38,6 +37,7 @@ export async function addField(field: Field) {
         throw error;
     }
 }
+
 
 export async function updateField(field: Field) {
     
