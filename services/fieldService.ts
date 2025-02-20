@@ -38,10 +38,33 @@ export async function addField(field: Field) {
     }
 }
 
-
 export async function updateField(field: Field) {
-    
+    try {
+        // Ensure that pic1 and pic2 are strings before converting them to Buffer
+        const pic1Buffer = typeof field.pic1 === "string" ? Buffer.from(field.pic1, "base64") : undefined;
+        const pic2Buffer = typeof field.pic2 === "string" ? Buffer.from(field.pic2, "base64") : undefined;
+
+        const updatedField = await prisma.field.update({
+            where: {
+                fieldID: field.fieldID,
+            },
+            data: {
+                fieldName: field.fieldName,
+                fieldLocation: field.fieldLocation,
+                fieldSize: field.fieldSize,
+                fieldStaff: field.staff,
+                pic1: pic1Buffer !== undefined ? pic1Buffer : undefined,
+                pic2: pic2Buffer !== undefined ? pic2Buffer : undefined,
+            }
+        });
+
+        return updatedField;
+    } catch (error) {
+        console.error("Error while updating field", error);
+        throw error;
+    }
 }
+
 export async function deleteField(fieldID: string) {
     try {
         await prisma.field.delete({
