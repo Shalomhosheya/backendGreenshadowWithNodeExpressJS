@@ -8,53 +8,71 @@ datasource db {
 }
 
 model Crop {
-  cropID       String @id @default(uuid())
-  cropName     String
-  cropImage    Bytes
+  cropID         String  @id @default(uuid())
+  cropName       String
+  cropImage      Bytes
   scientificName String
-  category     String
-  season       String
+  category       String
+  season         String
 }
+
 model Vehicle {
-    vehicleID  String@id @default(uuid())
-    vehicleCategory String
-    fueltype String
-    remarks String
-    status String
-    licenseplate String
+  vehicleID       String @id @default(uuid())
+  vehicleCategory String
+  fueltype        String
+  remarks         String
+  status          String
+  licenseplate    String
 
+  reservations    Reservation[] // ✅ One Vehicle can have many Reservations
 }
-model equipment{
-  equipID String@id @default(uuid())
-  name String
-  type String
-  status String
+
+model Equipment { // ✅ Fixed Naming Convention
+  equipID String @id @default(uuid())
+  name    String
+  type    String
+  status  String
 }
+
 model Field {
-    fieldID       String  @id
-    fieldName     String
-    fieldLocation String
-    fieldSize     String
-    fieldStaff    String
-    pic1          Bytes?
-    pic2          Bytes?
+  fieldID       String  @id
+  fieldName     String
+  fieldLocation String
+  fieldSize     String
+  fieldStaff    String
+  pic1          Bytes?
+  pic2          Bytes?
 }
-model Staff{
-  staffID String@id @default(uuid())
-  firstName String
-  lastName String
-  designation String
-  gender String
-  address1 String
-  address2 String
-  address3 String
-  address4 String
-  address5 String
-  joindate DateTime
-  DOB DateTime
-  role String
-  contactnum String
-  email String
-  field String
 
+model Staff {
+  staffID    String   @id @default(uuid())
+  firstName  String
+  lastName   String
+  designation String
+  gender     String
+  address1   String
+  address2   String
+  address3   String
+  address4   String
+  address5   String
+  joindate   DateTime
+  DOB        DateTime
+  role       String
+  contactnum String
+  email      String
+  field      String
+
+  reservations Reservation[] // ✅ One Staff can have many Reservations
+}
+
+model Reservation { // ✅ Fixed Typo (reservaationID → reservationID)
+  reservationID   String   @id @default(uuid())
+  date            DateTime
+  response        String
+  reservationType String
+  staffID         String
+  vehicleID       String
+
+  staff   Staff   @relation(fields: [staffID], references: [staffID])
+  vehicle Vehicle @relation(fields: [vehicleID], references: [vehicleID])
 }
