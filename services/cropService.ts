@@ -1,26 +1,33 @@
 import {Crop} from "../model/crop";
 import {prisma} from "../database/prisma-database";
 
-export async function AddCrop(crop:Crop){
+export async function AddCrop(crop: Crop) {
     try {
-        const cropSeason = String(crop.season);
-        console.log("Image", crop.cropImage)
+        console.log("Image Received:", crop.cropImage);
+
+        if (!crop.cropName) {
+            throw new Error("Crop name is required");
+        }
+
         const newCrop = await prisma.crop.create({
-            data:{
-                cropID:crop.cropID,
-                cropName:crop.cropName,
-                cropImage:crop.cropImage,
-                scientificName:crop.scientificName,
-                category:crop.category,
-                season:cropSeason
+            data: {
+                cropID: crop.cropID , // Optional ID handling
+                cropName: crop.cropName,
+                cropImage: crop.cropImage, // Ensure this is a Buffer
+                scientificName: crop.scientificName,
+                category: crop.category,
+                season: String(crop.season) // Convert to string if necessary
             }
-        })
-        console.log("Crop Added : " , newCrop);
+        });
+
+        console.log("Crop Added:", newCrop);
         return newCrop;
-    }catch (err){
-        console.log("Error during crop adding : ", err)
+    } catch (err) {
+        console.error("Error during crop adding:", err);
+        throw err; // Rethrow to ensure proper error handling
     }
 }
+
 
 export async function UpdateCrop(cropID: string, crop: Crop) {
     try {
