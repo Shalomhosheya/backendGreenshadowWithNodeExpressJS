@@ -9,6 +9,7 @@ export async function addUser(user: User) {
                 firstName: user.firstname, // Fixed inconsistent naming
                 lastName: user.lastName,
                 email: user.email,
+                password: user.password,
                 role: user.role
             }
         });
@@ -29,6 +30,7 @@ export async function updateUser(userID: string, updatedUser: User) { // Changed
                 firstName: updatedUser.firstname, // Fixed inconsistent naming
                 lastName: updatedUser.lastName,
                 email: updatedUser.email,
+                password: updatedUser.password, // Fixed inconsistent naming
                 role: updatedUser.role
             }
         });
