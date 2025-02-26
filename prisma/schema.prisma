@@ -32,6 +32,7 @@ model Equipment { // ✅ Fixed Naming Convention
   name    String
   type    String
   status  String
+  EquipmentDetails EquipmentDetails[] // ✅ One Equipment can have many EquipmentDetails
 }
 
 model Field {
@@ -42,6 +43,8 @@ model Field {
   fieldStaff    String
   pic1          Bytes?
   pic2          Bytes?
+
+  EquipmentDetails EquipmentDetails[] 
 }
 
 model Staff {
@@ -61,8 +64,9 @@ model Staff {
   contactnum String
   email      String
   field      String
-
+  EquipmentDetails EquipmentDetails[] 
   reservations Reservation[] // ✅ One Staff can have many Reservations
+
 }
 
 model Reservation { // ✅ Fixed Typo (reservaationID → reservationID)
@@ -83,4 +87,17 @@ model User {
   email String
   password String
   role String
+  }
+
+model EquipmentDetails {
+  equipDetailID String @id @default(uuid())
+  data String
+  response String
+  equipID String
+  staffID String
+  fieldID String
+
+  staff   Staff   @relation(fields: [staffID], references: [staffID])
+  field   Field   @relation(fields: [fieldID], references: [fieldID])
+  equipment Equipment @relation(fields: [equipID], references: [equipID])
   }

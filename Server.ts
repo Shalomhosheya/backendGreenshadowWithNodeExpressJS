@@ -5,6 +5,7 @@ import EquipmentController from './controllers/equipmentController';
 import FieldController from './controllers/fieldController';
 import StaffController from './controllers/staffController';
 import ReservationController from './controllers/reservationcontroller';
+import UserController from './controllers/userController';
 import fileupload from 'express-fileupload';
 import cors from 'cors'; // Import CORS properly
 
@@ -28,6 +29,7 @@ app.use('/equipment', EquipmentController);
 app.use('/field', FieldController);
 app.use('/staff', StaffController);
 app.use('/reservation', ReservationController);
+app.use('/user', UserController);
 
 // Handle 404
 app.use('*', (req, res) => {
