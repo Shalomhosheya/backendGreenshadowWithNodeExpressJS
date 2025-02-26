@@ -29,7 +29,7 @@ router.put('/updateMonitoringLog/:id', async (req: express.Request, res: express
     const monitoringLogId = req.params.id;
     const monitoringLog: MonitoringLog = req.body;
     try {
-        const updatedMonitoringLog = await updateMonitoringLog(monitoringLogId, monitoringLog);
+        const updatedMonitoringLog = await updateMonitoringLog(monitoringLog, monitoringLogId);
         res.status(200).json(updatedMonitoringLog);
     } catch (error) {
         console.log("Error while updating monitoringLog", error);

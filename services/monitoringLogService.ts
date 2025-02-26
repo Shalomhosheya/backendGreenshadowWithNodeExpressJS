@@ -33,10 +33,10 @@ export async function viewAllMontoringlog() {
     return monitoringLog;
 }
 
-export async function updateMonitoringLog(monitoringLog: MonitoringLog) {
-    const updatedMonitoringLog = await prisma.montoringLog.update({
+export async function updateMonitoringLog(monitoringLog: MonitoringLog, monitoringLogID: string) {
+     const updatedMonitoringLog = await prisma.montoringLog.update({
         where: {
-            logID: monitoringLog.logID
+            logID: monitoringLogID
         },
         data: {
             log_Date: monitoringLog.log_date,
@@ -44,7 +44,7 @@ export async function updateMonitoringLog(monitoringLog: MonitoringLog) {
             observed_image: monitoringLog.image,
             staffID: monitoringLog.StaffID,
             fieldID: monitoringLog.FieldID,
-            cropID : monitoringLog.CropID
+            cropID: monitoringLog.CropID
         }
     });
     return updatedMonitoringLog;
