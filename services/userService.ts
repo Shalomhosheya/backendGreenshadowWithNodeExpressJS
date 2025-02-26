@@ -53,7 +53,7 @@ export async function viewAllUsers() {
     }
 }
 
-export async function deleteStaff(staffID: string) { // Changed userID → staffID
+export async function deleteUser(staffID: string) { // Changed userID → staffID
     try {
         return await prisma.staff.delete({
             where: { staffID } // Staff model uses staffID, not userID
