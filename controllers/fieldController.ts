@@ -25,20 +25,22 @@ router.post('/addField', async (req, res) => {
         res.status(400).send("Error during field");
     }
 });
-router.put("/updateField", async (req: e.Request, res: e.Response) => {
+router.put("/updateField/:fieldID", async (req: e.Request, res: e.Response) => {
  
     const field: Field = req.body;
+    const fieldID: string = req.params.fieldID;
         try{
-            const updatedField = await updateField(field);
+            const updatedField = await updateField(field, fieldID);
             res.status(200).json(updatedField);
         }catch(err){
             console.log("Error while updating field", err);
             res.status(400).send("Error while updating field");
         }
 })
-router.delete("/deleteField", async (req: e.Request, res: e.Response) => {
+router.delete("/deleteField/:fieldID", async (req: e.Request, res: e.Response) => {
     
-    const fieldID = req.body.fieldID;
+    const fieldID = req.params.fieldID;
+    console.log("Received field ID : ", fieldID);
         try{
             const deletedField = await deleteField(fieldID);
             res.status(200).json(deletedField);

@@ -38,28 +38,29 @@ export async function addField(field: Field) {
     }
 }
 
-export async function updateField(field: Field) {
+export async function updateField(field: Field,fieldID: string) {
+    
     try {
         // Ensure that pic1 and pic2 are strings before converting them to Buffer
-        const pic1Buffer = typeof field.pic1 === "string" ? Buffer.from(field.pic1, "base64") : undefined;
-        const pic2Buffer = typeof field.pic2 === "string" ? Buffer.from(field.pic2, "base64") : undefined;
-
+        const pic1Buffer = typeof field.pic1 === "string"? Buffer.from(field.pic1, "base64") : undefined;
+        const pic2Buffer = typeof field.pic2 === "string"? Buffer.from(field.pic2, "base64") : undefined;
+        
         const updatedField = await prisma.field.update({
             where: {
-                fieldID: field.fieldID,
+                fieldID: fieldID
             },
             data: {
                 fieldName: field.fieldName,
                 fieldLocation: field.fieldLocation,
                 fieldSize: field.fieldSize,
                 fieldStaff: field.staff,
-                pic1: pic1Buffer !== undefined ? pic1Buffer : undefined,
-                pic2: pic2Buffer !== undefined ? pic2Buffer : undefined,
+                pic1: pic1Buffer,
+                pic2: pic2Buffer,
             }
         });
 
         return updatedField;
-    } catch (error) {
+    }catch (error) {
         console.error("Error while updating field", error);
         throw error;
     }
