@@ -38,7 +38,7 @@ model Equipment { // ✅ Fixed Naming Convention
 }
 
 model Field {
-  fieldID       String  @id
+  fieldID      String @id @default(uuid())
   fieldName     String
   fieldLocation String
   fieldSize     String

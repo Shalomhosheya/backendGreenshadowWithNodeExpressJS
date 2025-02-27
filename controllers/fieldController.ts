@@ -14,16 +14,17 @@ router.get("/viewAllFields", async (req: e.Request, res: e.Response) => {
         res.status(400).send("Error while retrieving all fields");
     }
 })
-router.post("/addField", async (req: e.Request, res: e.Response) => {
-     const field: Field = req.body;
-        try{
-            const addedField = await addField(field);
-            res.status(200).json(addedField);
-        }catch(err){
-            console.log("Error while adding field", err);
-            res.status(400).send("Error while adding field");
-        }
-})
+router.post('/addField', async (req, res) => {
+    const field = req.body;
+    console.log("Received field : ", field);
+    try {
+        const addedCrop = await addField(field);
+        res.status(200).json(addedCrop);
+    } catch (err) {
+        console.log("Error during field adding : ", err)
+        res.status(400).send("Error during field");
+    }
+});
 router.put("/updateField", async (req: e.Request, res: e.Response) => {
  
     const field: Field = req.body;
